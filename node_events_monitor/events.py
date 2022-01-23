@@ -1,7 +1,6 @@
 from abc import abstractmethod
 from node_events_monitor.wol_server import WakeOnLan
 from node_events_monitor.servers import ServerList
-import asyncio
 import logging
 
 

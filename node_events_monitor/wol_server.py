@@ -2,7 +2,6 @@ import logging
 import os
 from time import sleep
 from typing import List
-from black import asyncio
 from wakeonlan import send_magic_packet
 from node_events_monitor.servers import Server
 
