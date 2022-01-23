@@ -1,24 +1,30 @@
-from ast import List
-from servers import ServerList
+from typing import List
+from flask import abort
 import jsons
 
 class Server():
 
-    def __init__(self):
+    def __init__(self, name="", ip="", port=""):
         self.name = ""
         self.ip = ""
         self.port = ""
+        self.mac = ""
+        
+class ServerList(object):
 
-class ServerList():
     servers: List[Server] = []
-
-    def __init__(self):
-        pass
 
     @classmethod
     def from_file(cls, file_name):
         with open(file_name, "r") as file:
-            data = file.readlines()
             server_list = ServerList()
             server_list.servers = jsons.load(file, Server)
             return server_list
+
+    @classmethod
+    def find(cls, server_name):
+        for server in cls.servers:
+            if server.name == server_name:
+                return server
+        
+        abort(404)

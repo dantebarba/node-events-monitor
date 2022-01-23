@@ -1,5 +1,6 @@
 from abc import abstractmethod
-from wakeonlan import WakeOnLan
+from wol_server import WakeOnLan
+from servers import ServerList
 
 class Event(object):
     """ This class represents the event type """
@@ -10,8 +11,8 @@ class Event(object):
 class WakeOnLanEvent(Event):
     def action(self, payload={}):
         if payload["status"].lower() == "down":
-            WakeOnLan.instance().wake(payload["server"])
+            WakeOnLan.instance().wake(ServerList.find(payload["server"]))
         if payload["status"].lower() == "up":
-            WakeOnLan.instance().stop(payload["server"])
+            WakeOnLan.instance().stop(ServerList.find(payload["server"]))
         
 
