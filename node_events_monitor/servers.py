@@ -1,10 +1,12 @@
+import json
+import logging
 from typing import List
-from flask import abort
+from flask import abort, jsonify
 import jsons
 
 class Server():
 
-    def __init__(self, name="", ip="", port=""):
+    def __init__(self):
         self.name = ""
         self.ip = ""
         self.port = ""
@@ -17,9 +19,7 @@ class ServerList(object):
     @classmethod
     def from_file(cls, file_name):
         with open(file_name, "r") as file:
-            server_list = ServerList()
-            server_list.servers = jsons.load(file, Server)
-            return server_list
+            cls.servers = jsons.load(json.load(file), List[Server])
 
     @classmethod
     def find(cls, server_name):
@@ -27,4 +27,4 @@ class ServerList(object):
             if server.name == server_name:
                 return server
         
-        abort(404)
+        jsonify({ "message" : "the server name was not found in list"}), 404

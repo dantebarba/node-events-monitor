@@ -1,5 +1,5 @@
 import unittest
-from create_app import create_app
+from app import create_app
 
 class ApiTest(unittest.TestCase):
     def setUp(self):
@@ -8,4 +8,8 @@ class ApiTest(unittest.TestCase):
 
     def test_wol_event(self):
         data = {"server" : "papini", "event": "WakeOnLanEvent", "status": "down"}
-        self.client.post(base_url="127.0.0.1", port=5000, data=data)
+        response = self.client.get(base_url="http://127.0.0.1", data=data)
+
+        print(response.__dict__)
+
+        self.assertEqual(response.status_code, 200)

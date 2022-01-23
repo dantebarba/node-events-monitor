@@ -1,9 +1,13 @@
+import logging
+import os
 from time import sleep
 from typing import List
+from black import asyncio
 from wakeonlan import send_magic_packet
-from servers import Server
+from node_events_monitor.servers import Server
 
-class WakeOnLan():
+
+class WakeOnLan:
 
     _instance = None
 
@@ -18,14 +22,17 @@ class WakeOnLan():
 
     def send_wol(self, server):
         while server in self.servers:
-            send_magic_packet(server.mac,
-                            ip_address=server.ip)
-            sleep(120)
+            logging.warn("Running WoL command on server {}".format(server.name))
+            send_magic_packet(server.mac, ip_address=server.ip)
+            sleep(os.environ.get("WOL_DELAY", 120))
+
+        logging.warn("Stopping WoL. Server is back online: {}".format(server.name))
 
     def wake(self, server):
-        if server in self.servers:
-            self.send_wol(server)
+        self.servers.append(server)
+        self.send_wol(server)
 
     def stop(self, server):
         if server in self.servers:
-            self.servers.pop(server)
+            logging.warn("Stopping server {}".format(server.name))
+            self.servers.remove(server)
