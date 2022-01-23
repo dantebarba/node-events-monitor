@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  node-events-monitor:
+    container_name: node-events-monitor
+    build: .
+    ports:
+      - "80:5000"
+    environment:
+      - AUTH_KEY=$AUTH_KEY
+    
