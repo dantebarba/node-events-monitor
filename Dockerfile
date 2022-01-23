@@ -13,6 +13,6 @@ COPY . /app
 # Expose the Flask port
 EXPOSE 5000
 
-RUN chmod +x /app.py
+RUN chmod +x app.py
 
 CMD [ "python", "./app.py" ]
