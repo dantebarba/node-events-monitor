@@ -13,9 +13,7 @@ def event():
         return "OK"
     except Exception:
         abort(404)
-
-    return "Event"
-
+        
 @api.route('/')
 def hello_world():
     return 'api is running'
