@@ -2,6 +2,12 @@
 
 Monitor events from a list of nodes using a webhook.
 
+## Install
+
+```bash
+docker-compose up -d
+```
+
 ## Usage
 
 ```http
