@@ -1,4 +1,4 @@
-from flask import Blueprint, abort
+from flask import Blueprint, abort, request
 import events
 
 api = Blueprint('api', __name__)
