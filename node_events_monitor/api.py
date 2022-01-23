@@ -12,6 +12,7 @@ def hello_world():
 @api.route("/event", methods=["POST"])
 def event():
     data = request.get_json()
+    logging.warn("Input data: {}".format(data))
     # instantiate the event
     try:
         event = getattr(events, data["event"])()
